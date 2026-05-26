@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3M 제품 마스터 아카이브 | 링커</title>
+<style>
+:root{
+  --accent:#534AB7; --accent-light:#EEEDFE; --accent-dark:#26215C;
+  --bg:#F5F5F3; --surf:#FFFFFF; --border:#E2E2DE; --border-d:#CCCCC8;
+  --text:#1A1A18; --muted:#6B6B66; --hint:#9C9C96;
+  --safety:#185FA5; --safety-bg:#E6F1FB;
+  --abr:#3B6D11; --abr-bg:#EAF3DE;
+  --tape:#854F0B; --tape-bg:#FAEEDA;
+  --elec:#A32D2D; --elec-bg:#FCEBEB;
+  --auto:#0F6E56; --auto-bg:#E1F5EE;
+  --spec:#5F5E5A; --spec-bg:#F1EFE8;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;line-height:1.5;}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px;}
+
+/* Header */
+header{background:var(--surf);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
+.head-in{display:flex;align-items:center;gap:16px;padding:16px 0;flex-wrap:wrap;}
+.logo{font-size:18px;font-weight:700;color:var(--accent-dark);white-space:nowrap;}
+.logo span{color:var(--accent);}
+.tag{font-size:11px;background:var(--accent-light);color:var(--accent);padding:3px 9px;border-radius:6px;font-weight:600;}
+.search-box{flex:1;min-width:240px;position:relative;}
+.search-box input{width:100%;padding:11px 14px 11px 40px;border:1px solid var(--border-d);border-radius:10px;font-size:15px;font-family:inherit;outline:none;background:var(--bg);}
+.search-box input:focus{border-color:var(--accent);background:var(--surf);}
+.search-box::before{content:"⌕";position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--hint);}
+
+/* Layout */
+.main{display:flex;gap:24px;padding:24px 0;align-items:flex-start;}
+.side{width:230px;flex-shrink:0;position:sticky;top:84px;}
+.side h3{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 10px;font-weight:600;}
+.fgroup{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+.fitem{display:flex;align-items:center;justify-content:space-between;padding:6px 0;cursor:pointer;font-size:14px;color:var(--text);}
+.fitem:hover{color:var(--accent);}
+.fitem input{margin-right:8px;accent-color:var(--accent);}
+.fitem .cnt{font-size:12px;color:var(--hint);}
+.fitem label{cursor:pointer;flex:1;display:flex;align-items:center;}
+.content{flex:1;min-width:0;}
+.bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+.bar .n{font-size:14px;color:var(--muted);}
+.bar .n b{color:var(--text);font-weight:600;}
+.bar select{padding:8px 12px;border:1px solid var(--border-d);border-radius:8px;font-size:13px;font-family:inherit;background:var(--surf);outline:none;cursor:pointer;}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;}
+.card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:16px 18px;cursor:pointer;transition:border-color .12s,transform .12s;}
+.card:hover{border-color:var(--accent);transform:translateY(-1px);}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;}
+.card-name{font-size:14.5px;font-weight:600;line-height:1.4;}
+.pill{font-size:10.5px;padding:3px 8px;border-radius:6px;font-weight:600;white-space:nowrap;}
+.p-안전보호구{background:var(--safety-bg);color:var(--safety);}
+.p-연마재{background:var(--abr-bg);color:var(--abr);}
+.p-접착·테이프{background:var(--tape-bg);color:var(--tape);}
+.p-전기{background:var(--elec-bg);color:var(--elec);}
+.p-자동차{background:var(--auto-bg);color:var(--auto);}
+.p-산업특수{background:var(--spec-bg);color:var(--spec);}
+.card-meta{font-size:11.5px;color:var(--hint);margin-bottom:9px;}
+.card-desc{font-size:12.5px;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.more{text-align:center;padding:20px;}
+.more button{padding:11px 28px;border:1px solid var(--border-d);background:var(--surf);border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;color:var(--text);}
+.more button:hover{border-color:var(--accent);color:var(--accent);}
+.empty{text-align:center;padding:60px 20px;color:var(--muted);}
+.loading{text-align:center;padding:60px;color:var(--muted);font-size:15px;}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+.modal.on{display:flex;}
+.modal-in{background:var(--surf);border-radius:16px;max-width:620px;width:100%;max-height:86vh;overflow-y:auto;padding:28px;}
+.modal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px;}
+.modal-name{font-size:19px;font-weight:700;line-height:1.4;}
+.modal-close{background:none;border:none;font-size:26px;color:var(--hint);cursor:pointer;line-height:1;padding:0 4px;}
+.modal-meta{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.modal-img{width:100%;max-width:280px;border-radius:10px;border:1px solid var(--border);margin-bottom:18px;background:var(--bg);cursor:zoom-in;display:block;}
+.sec{margin-bottom:18px;}
+.sec h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin:0 0 8px;font-weight:600;}
+.sec p{font-size:14px;color:var(--text);line-height:1.65;margin:0;}
+.sec ul{margin:0;padding-left:18px;}
+.sec li{font-size:14px;color:var(--text);line-height:1.7;}
+.kwbox{display:flex;flex-wrap:wrap;gap:6px;}
+.kw{font-size:12px;background:var(--bg);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;}
+.idrow{display:flex;gap:18px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);padding-top:14px;}
+.idrow b{color:var(--text);font-weight:600;}
+.copy{cursor:pointer;color:var(--accent);font-size:12px;margin-left:6px;}
+@media(max-width:760px){.side{display:none;}.main{padding:16px 0;}}
+
+/* Hero */
+.hero{background:linear-gradient(180deg,#26215C 0%,#534AB7 100%);color:#fff;padding:54px 0 48px;text-align:center;}
+.hero-title{font-size:40px;font-weight:700;margin:0 0 10px;letter-spacing:-.01em;}
+.hero-sub{font-size:18px;font-weight:400;margin:0 0 6px;opacity:.95;}
+.hero-by{font-size:13px;opacity:.7;margin:0 0 28px;letter-spacing:.08em;}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-bottom:24px;flex-wrap:wrap;}
+.hstat{display:flex;flex-direction:column;gap:4px;}
+.hn{font-size:30px;font-weight:700;line-height:1;}
+.hl{font-size:12px;opacity:.8;letter-spacing:.03em;}
+.hero-note{font-size:13.5px;opacity:.85;margin:0;}
+
+/* Vision */
+.vision{background:var(--surf);border-top:1px solid var(--border);padding:36px 0 44px;margin-top:32px;}
+.vision h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);text-align:center;margin:0 0 20px;font-weight:600;}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;}
+.vcard{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.vcard .vt{font-size:15px;font-weight:600;margin:0 0 6px;color:var(--accent-dark);}
+.vcard .vd{font-size:13px;color:var(--muted);line-height:1.55;margin:0;}
+.vfoot{text-align:center;font-size:13px;color:var(--hint);margin-top:24px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head-in">
+    <div class="logo">3M 도서관</div>
+    <div class="search-box">
+      <input id="q" type="text" placeholder="제품명·코드·키워드 검색 (예: 8977, 방진마스크, Cubitron)" autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1 class="hero-title">3M 도서관</h1>
+    <p class="hero-sub">상세페이지를 넘어, 한눈에 보는 제품 아카이브</p>
+    <p class="hero-by">by Linker</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hn" id="h-total">5,415</span><span class="hl">수록 제품</span></div>
+      <div class="hstat"><span class="hn">6</span><span class="hl">사업부</span></div>
+      <div class="hstat"><span class="hn">즉시</span><span class="hl">검색·필터</span></div>
+    </div>
+    <p class="hero-note">3M 공식 카탈로그를 고객이 보기 쉬운 형태로 직접 재구성했습니다.</p>
+  </div>
+</section>
+
+<div class="wrap main">
+  <aside class="side">
+    <div class="fgroup">
+      <h3>사업부</h3>
+      <div id="f-div"></div>
+    </div>
+    <div class="fgroup">
+      <h3>브랜드</h3>
+      <div id="f-brand"></div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="bar">
+      <div class="n">전체 <b id="total">0</b>개 · 표시 <b id="shown">0</b>개</div>
+      <select id="sort">
+        <option value="name">이름순</option>
+        <option value="div">사업부순</option>
+      </select>
+    </div>
+    <div id="grid" class="grid"></div>
+    <div id="loading" class="loading">데이터를 불러오는 중…</div>
+    <div id="more" class="more" style="display:none;"><button id="moreBtn">더 보기</button></div>
+    <div id="empty" class="empty" style="display:none;">검색 결과가 없습니다.</div>
+  </main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-in" id="modalIn"></div>
+</div>
+
+<section class="vision">
+  <div class="wrap">
+    <h3>데이터가 쌓이면, 이렇게 확장됩니다</h3>
+    <div class="vgrid">
+      <div class="vcard"><p class="vt">산업별 추천</p><p class="vd">작업 환경·산업군에 맞는 3M 제품을 자동으로 추천</p></div>
+      <div class="vcard"><p class="vt">제품 비교</p><p class="vd">유사 제품의 스펙·특징을 한눈에 비교</p></div>
+      <div class="vcard"><p class="vt">AI 제품 상담</p><p class="vd">"이 작업엔 뭘 써요?" 질문에 바로 답하는 상담 봇</p></div>
+      <div class="vcard"><p class="vt">시각화 카탈로그</p><p class="vd">고객 맞춤 요약 자료를 즉시 생성</p></div>
+    </div>
+    <p class="vfoot">제품 데이터가 더해질수록 활용 범위가 넓어집니다. — Linker</p>
+  </div>
+</section>
+
+<script>
+let DATA=[], view=[], page=0, PER=60;
+const $=id=>document.getElementById(id);
+const divColors=['안전보호구','연마재','접착·테이프','전기','자동차','산업특수'];
+
+fetch('products.json').then(r=>r.json()).then(d=>{
+  DATA=d; $('loading').style.display='none';
+  buildFilters(); apply();
+}).catch(e=>{ $('loading').textContent='products.json을 불러오지 못했습니다. HTML과 같은 폴더에 있는지 확인하세요.'; });
+
+function buildFilters(){
+  $('h-total').textContent=DATA.length.toLocaleString();
+  const dc={},bc={};
+  DATA.forEach(p=>{dc[p.div]=(dc[p.div]||0)+1; bc[p.brand]=(bc[p.brand]||0)+1;});
+  $('f-div').innerHTML=divColors.filter(d=>dc[d]).map(d=>fitem('div',d,dc[d])).join('');
+  const topB=Object.entries(bc).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  $('f-brand').innerHTML=topB.map(([b,c])=>fitem('brand',b,c)).join('');
+  document.querySelectorAll('.fitem input').forEach(i=>i.addEventListener('change',apply));
+}
+function fitem(t,v,c){return `<div class="fitem"><label><input type="checkbox" data-t="${t}" value="${esc(v)}">${esc(v)}</label><span class="cnt">${c}</span></div>`;}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function checked(t){return [...document.querySelectorAll(`.fitem input[data-t="${t}"]:checked`)].map(i=>i.value);}
+
+function apply(){
+  const q=$('q').value.trim().toLowerCase();
+  const fd=checked('div'), fb=checked('brand');
+  view=DATA.filter(p=>{
+    if(fd.length&&!fd.includes(p.div))return false;
+    if(fb.length&&!fb.includes(p.brand))return false;
+    if(q){
+      const hay=(p.name+' '+p.id+' '+p.kw+' '+p.c1+' '+p.c2+' '+p.c3+' '+p.brand).toLowerCase();
+      if(!hay.includes(q))return false;
+    }
+    return true;
+  });
+  const s=$('sort').value;
+  view.sort((a,b)=> s==='div' ? (a.div+a.name).localeCompare(b.div+b.name,'ko') : a.name.localeCompare(b.name,'ko'));
+  page=0; render();
+}
+function render(){
+  $('total').textContent=view.length.toLocaleString();
+  const slice=view.slice(0,(page+1)*PER);
+  $('shown').textContent=slice.length.toLocaleString();
+  $('empty').style.display=view.length?'none':'block';
+  $('grid').innerHTML=slice.map((p,i)=>card(p,DATA.indexOf(p))).join('');
+  $('more').style.display=slice.length<view.length?'block':'none';
+  document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openModal(+c.dataset.i)));
+}
+function card(p,idx){
+  const desc=p.desc?esc(p.desc):'<span style="color:var(--hint)">상세 정보 준비 중</span>';
+  return `<div class="card" data-i="${idx}">
+    <div class="card-top"><div class="card-name">${esc(p.name)}</div><span class="pill p-${p.div}">${p.div}</span></div>
+    <div class="card-meta">${esc(p.brand)} · ${esc(p.c2||p.c1)} · ${esc(p.id)}</div>
+    <div class="card-desc">${desc}</div>
+  </div>`;
+}
+function openModal(i){
+  const p=DATA[i];
+  const feats=(p.feat&&p.feat.length)?`<div class="sec"><h4>주요 특징</h4><ul>${p.feat.map(f=>`<li>${esc(f)}</li>`).join('')}</ul></div>`:'';
+  const desc=p.desc?`<div class="sec"><h4>제품 설명</h4><p>${esc(p.desc)}</p></div>`:'';
+  const work=p.work?`<div class="sec"><h4>권장 작업</h4><p>${esc(p.work)}</p></div>`:'';
+  const kws=p.kw?`<div class="sec"><h4>키워드</h4><div class="kwbox">${p.kw.split(/[,\s]\s*/).filter(k=>k.trim()).slice(0,30).map(k=>`<span class="kw">${esc(k.trim())}</span>`).join('')}</div></div>`:'';
+  const bigImg=p.img?p.img.replace(/\/w_\d+,h_\d+,c_pad\//,'/w_500,h_500,c_pad/'):'';
+  const origImg=p.img?p.img.replace(/\/(s--[^/]+)\/w_\d+,h_\d+,c_pad\//,'/$1/'):'';
+  const img=p.img?`<img class="modal-img" src="${esc(bigImg)}" title="클릭하면 원본 이미지를 새 탭에서 엽니다" onclick="window.open('${esc(origImg)}','_blank')" onerror="this.style.display='none'">`:'';
+  $('modalIn').innerHTML=`
+    <div class="modal-top"><div class="modal-name">${esc(p.name)}</div><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-meta"><span class="pill p-${p.div}">${p.div}</span> &nbsp; ${esc(p.c1)} › ${esc(p.c2)}${p.c3?' › '+esc(p.c3):''}</div>
+    ${img}${desc}${feats}${work}${kws}
+    <div class="idrow"><span>3M ID <b>${esc(p.id)}</b><span class="copy" onclick="navigator.clipboard.writeText('${esc(p.id)}')">복사</span></span><span>브랜드 <b>${esc(p.brand)}</b></span><span>원산지 <b>${esc(p.origin||'-')}</b></span></div>`;
+  $('modal').classList.add('on');
+}
+function closeModal(){$('modal').classList.remove('on');}
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+let t;$('q').addEventListener('input',()=>{clearTimeout(t);t=setTimeout(apply,180);});
+$('sort').addEventListener('change',apply);
+$('moreBtn').addEventListener('click',()=>{page++;render();});
+</script>
+</body>
+</html>
